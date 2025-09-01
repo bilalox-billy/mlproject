@@ -1,0 +1,6 @@
+# skip venv folder
+venv/
+# skip .env file
+.env
+# skip .python_version file
+.python_version
