@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: ML-project
+Version: 0.0.1
+Author: Bilal Ben Mahria
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: seaborn
+Dynamic: author
+Dynamic: requires-dist
