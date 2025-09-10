@@ -8,6 +8,11 @@ import pandas as pd
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
 
+
+from src.component.data_transformation import DataTransformation
+from src.component.data_transformation import DataTransformationConfig
+
+
 @dataclass # you don't need to use init
 class DataIngestionConfig:
     train_data_path: str = os.path.join('artifacts', 'train.csv')
@@ -23,7 +28,7 @@ class DataIngestion:
         try:
             df = pd.read_csv('notebook/data/stud.csv') # you can read the data from any source like mongoDB
             logging.info('Read dataset as dataFrame')
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True) # Create directories if not exist
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True) # Create directory
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
             logging.info("Train test split initiated")
             train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
@@ -41,4 +46,8 @@ class DataIngestion:
 
 if __name__ == "__main__":
     data_ingestion = DataIngestion()
-    data_ingestion.initiate_data_ingestion()
+    train_data_path, test_data_path = data_ingestion.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data_path,test_data_path)
+
